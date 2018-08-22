@@ -17,6 +17,7 @@
 		0ABB66BA1AA69DCE001E037A /* BrightnessController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB66B91AA69DCE001E037A /* BrightnessController.m */; };
 		0ABB66BD1AA800AB001E037A /* DisplayInfo.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB66BC1AA800AB001E037A /* DisplayInfo.m */; };
 		0ABB66C01AA97D8C001E037A /* DisplayCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = 0ABB66BF1AA97D8C001E037A /* DisplayCollection.m */; };
+		E3B7A428212E0F2700766587 /* DDC.c in Sources */ = {isa = PBXBuildFile; fileRef = E3B7A426212E0F2700766587 /* DDC.c */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,8 @@
 		0ABB66BC1AA800AB001E037A /* DisplayInfo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayInfo.m; sourceTree = "<group>"; };
 		0ABB66BE1AA97D8C001E037A /* DisplayCollection.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DisplayCollection.h; sourceTree = "<group>"; };
 		0ABB66BF1AA97D8C001E037A /* DisplayCollection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DisplayCollection.m; sourceTree = "<group>"; };
+		E3B7A426212E0F2700766587 /* DDC.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = DDC.c; sourceTree = "<group>"; };
+		E3B7A427212E0F2700766587 /* DDC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDC.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -105,6 +108,8 @@
 				0A9F2FCB1AA3CAB100F6778A /* ViewController.m */,
 				0ABB66B81AA69DCE001E037A /* BrightnessController.h */,
 				0ABB66B91AA69DCE001E037A /* BrightnessController.m */,
+				E3B7A426212E0F2700766587 /* DDC.c */,
+				E3B7A427212E0F2700766587 /* DDC.h */,
 				0A9F2FC31AA3CAB100F6778A /* Supporting Files */,
 				0A9F2FCD1AA3CAB100F6778A /* Images.xcassets */,
 				0A9F2FCF1AA3CAB100F6778A /* Main.storyboard */,
@@ -190,7 +195,7 @@
 						DevelopmentTeam = 9294MV26ES;
 						SystemCapabilities = {
 							com.apple.Sandbox = {
-								enabled = 1;
+								enabled = 0;
 							};
 						};
 					};
@@ -244,6 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0A9F2FCC1AA3CAB100F6778A /* ViewController.m in Sources */,
+				E3B7A428212E0F2700766587 /* DDC.c in Sources */,
 				0A9F2FC91AA3CAB100F6778A /* main.m in Sources */,
 				0ABB66B71AA580C0001E037A /* GammaTable.m in Sources */,
 				0A9F2FC71AA3CAB100F6778A /* AppDelegate.m in Sources */,
@@ -364,7 +370,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Brightness/Brightness.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = 9294MV26ES;
 				INFOPLIST_FILE = Brightness/Info.plist;
@@ -378,7 +383,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = Brightness/Brightness.entitlements;
 				COMBINE_HIDPI_IMAGES = YES;
 				INFOPLIST_FILE = Brightness/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
