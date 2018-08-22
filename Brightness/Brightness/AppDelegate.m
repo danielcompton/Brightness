@@ -19,6 +19,8 @@
 - (void)applicationDidFinishLaunching:(NSNotification *)aNotification {
     // Insert code here to initialize your application
     
+    [self _checkTrusted];
+    
     self.brightCtrl = [[BrightnessController alloc] init];
     
     [self.brightCtrl start];
@@ -43,6 +45,7 @@
     self.appNapPreventionActivity = [[NSProcessInfo processInfo] beginActivityWithOptions:NSActivityUserInitiated reason:@"Prevent app nap from pausing brightness sync."];
     
     
+    
      
      //Status Bar
     
@@ -59,6 +62,12 @@
 
 -(void) applicationDidChangeScreenParameters:(NSNotification *)notification{
     [self.brightCtrl applicationDidChangeScreenParameters: notification];
+}
+
+- (void)_checkTrusted
+{
+    BOOL isTrusted = AXIsProcessTrustedWithOptions((__bridge CFDictionaryRef)@{(__bridge NSString *)kAXTrustedCheckOptionPrompt: @true});
+    NSLog(@"istrusted: %i",isTrusted);
 }
 
 
