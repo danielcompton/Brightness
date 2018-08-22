@@ -7,6 +7,7 @@
 //
 
 #import "BrightnessController.h"
+#import "DDC.h"
 
 const int maxDisplays=1000;
 
@@ -172,16 +173,26 @@ const int maxDisplays=1000;
 
 - (DisplayInfo *) searchForDrivingDisplay{
     for (DisplayInfo * info in self.displayCollection.displays){
+    NSLog(@"Test display is %@, %@", info.description, info.displayName);
+        NSLog(@"Can read brightness %d", info.canReadRealBrightness);
+        NSLog(@"Can set brightness %d", info.canSetRealBrightness);
+    }
+    for (DisplayInfo * info in self.displayCollection.displays){
+     
         if(info.canReadRealBrightness){
+            NSLog(@"Active display is %@, %@", info.description, info.displayName);
             return info;
         }
     }
     return nil;
 }
 
+
+
 - (void) updateAllDisplaysWithMeticulousness: (BOOL) meticulous{
     [self updateTargetBrightness];
-    float target = self.targetBrightness;
+    uint target = self.targetBrightness * 100;
+    NSLog(@"Setting brightness %d", target);
     for (DisplayInfo * dispInfo in self.displayCollection.displays){
         @try{
             if(dispInfo == self.drivingDisplay){
@@ -191,10 +202,11 @@ const int maxDisplays=1000;
             if(dispInfo.canSetRealBrightness){
                 // assume the brightness of a display where real brightness can be set doesn't need synching.
             }else{
-                float current = [dispInfo getFakeBrightness]; // throws
-                if(meticulous || fabs(target - current) > .001){
-                    NSLog(@"Setting Fake brightness to %f", target);
-                    [dispInfo setFakeBrightness:target]; // throws
+                uint current = getDDCBrightness(dispInfo.displayID);
+                NSLog(@"Current brightness %d", current);
+                if(meticulous || abs((int)target - (int)current) > 1){
+                    NSLog(@"Setting real brightness to %d", target);
+                    setDDCBrightness(dispInfo.displayID, target);
                 }
             }
         }
@@ -202,6 +214,27 @@ const int maxDisplays=1000;
             NSLog(@"Error updating brightness on display %d - %@", dispInfo.displayID, dispInfo.displayName);
         }
     }
+}
+
+void setDDCBrightness(CGDirectDisplayID displayID, float brightness){
+    struct DDCWriteCommand command;
+    command.control_id = BRIGHTNESS;
+    command.new_value = brightness;
+    if (!DDCWrite(displayID, &command)) {
+        NSLog(@"E: Failed to send DDC brightness command!");
+    }
+}
+
+uint getDDCBrightness(CGDirectDisplayID displayID) {
+    struct DDCReadCommand command;
+    command.control_id = BRIGHTNESS;
+    command.max_value = 0;
+    command.current_value = 0;
+    if (!DDCRead(displayID, &command)){
+        NSLog(@"E: DDC Read failed");
+    }
+    return command.current_value;
+    
 }
 
 - (void) updateTargetBrightness{
