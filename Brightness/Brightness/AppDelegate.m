@@ -24,7 +24,7 @@
     self.brightCtrl = [[BrightnessController alloc] init];
     
     [self.brightCtrl start];
-    NSTimer * timer = [NSTimer timerWithTimeInterval:5 target:self.brightCtrl selector:@selector(refresh) userInfo:nil repeats:YES];
+    NSTimer * timer = [NSTimer timerWithTimeInterval:1 target:self.brightCtrl selector:@selector(refresh) userInfo:nil repeats:YES];
     NSRunLoop * mainLoop = [NSRunLoop mainRunLoop];
     [mainLoop addTimer:timer forMode:NSRunLoopCommonModes];
     

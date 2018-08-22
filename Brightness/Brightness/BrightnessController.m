@@ -187,12 +187,10 @@ const int maxDisplays=1000;
     return nil;
 }
 
-
-
 - (void) updateAllDisplaysWithMeticulousness: (BOOL) meticulous{
     [self updateTargetBrightness];
     uint target = self.targetBrightness * 100;
-    NSLog(@"Setting brightness %d", target);
+//    NSLog(@"Setting brightness %d", target);
     for (DisplayInfo * dispInfo in self.displayCollection.displays){
         @try{
             if(dispInfo == self.drivingDisplay){
@@ -202,7 +200,10 @@ const int maxDisplays=1000;
             if(dispInfo.canSetRealBrightness){
                 // assume the brightness of a display where real brightness can be set doesn't need synching.
             }else{
-                uint current = getDDCBrightness(dispInfo.displayID);
+                NSLog(@"display %@", dispInfo.displayName);
+                
+//                uint current = getDDCBrightness(dispInfo.displayID);
+                int current = 100000;
                 NSLog(@"Current brightness %d", current);
                 if(meticulous || abs((int)target - (int)current) > 1){
                     NSLog(@"Setting real brightness to %d", target);
